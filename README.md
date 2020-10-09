@@ -54,7 +54,7 @@ import (
     mpesa "github.com/paymentsds/mpesa-go-sdk/pkg/paymentsds/mpesa"
 )
 
-var client mpesaClient = mpesa.NewClient(mpesa.Configuration{
+var client mpesa.Client = mpesa.NewClient(mpesa.Configuration{
 	ApiKey: "<REPLACE>"
 	PublicKey: "<REPLACE>"
 	Timeout: 0
