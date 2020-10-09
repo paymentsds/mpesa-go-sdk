@@ -51,7 +51,7 @@ M-Pesa SDK for Go is an unofficial library aiming to help businesses integrating
 ```go
 
 import (
-    mpesa "github.com/paymentsds/mpesa-go-sdk/pkg/paymentsds/mpesa"
+    mpesa "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa"
 )
 
 var client mpesa.Client = mpesa.NewClient(mpesa.Configuration{
