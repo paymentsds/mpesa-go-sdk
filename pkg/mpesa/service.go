@@ -28,32 +28,30 @@ func (s *Service) HandleQuery(intent Intent) (Result, error) {
 }
 
 func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, error) {
-	intent := s.fillOptionalValues(opcode, intent)
+	operation, ok := Operations[opcode]
 	
-	if missingValues, err := s.detectMissingValues(opcode, intent); err != nil {
+	if !ok {
+		// Panic
+	}
+
+	intent := s.fillOptionalValues(operation, intent)
+
+	if missingProperties; err := operation.detectMissingProperties(intent); err != nil {
+		
+	}
+
+	if invalidProperties; err := operation.validateProperties(intent); err != nil {
 
 	}
 
-	if errors, err := s.detectValidationErrors(opcode, intent); err != nil {
-
-	}
-
-	return s.performRequest(opcode, intent)
+	return s.performRequest(operation, intent)
 }
 
 func (s *Service) detectOperation(intent Intent) (OperationCode, error) {
 
 }
 
-func (s *Service) detectMissingValues(opcode Operationcode, intent Intent) []string {
-
-}
-
 func (s *Service) fillOptionalValues(opcode Operationcode, intent Intent) Intent {
-
-}
-
-func (s *Service) detectValidationErrors(opcode Operationcode, intent Intent) {
 
 }
 
