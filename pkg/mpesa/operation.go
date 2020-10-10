@@ -1,21 +1,21 @@
 package mpesa
 
 import (
-	"reflect"
 	"bytes"
 	"fmt"
-	"regexp"
 	errors "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/errors"
+	"reflect"
+	"regexp"
 )
 
 type Operation struct {
-	port int16
-	path string
-	method HttpMethod
-	required []string
-	optional []string
-	mapping map[string]string
-	rules map[string]string
+	port              int16
+	path              string
+	method            HttpMethod
+	required          []string
+	optional          []string
+	mapping           map[string]string
+	rules             map[string]string
 	missingProperties []string
 }
 
@@ -31,7 +31,7 @@ func (o *Operation) detectMissingProperties(intent Intent) ([]string, error) {
 						append(missingProperties, field)
 					}
 				}
-				
+
 				if kind == "float64" {
 					if value := e.Type().Field(i).Interface().(float64); value == 0.0 {
 						append(missingProperties, field)
@@ -56,15 +56,15 @@ func (o *Operation) validateProperties(intent Intent) ([]string, error) {
 		for _, field := range o.required {
 			if name = e.Type().Field(i).Name; field == name {
 				kind = e.Type().Field(i).Kind
-				
-				if kind == reflect.String() {					
+
+				if kind == reflect.String() {
 					r = regexp.MustCompile(o.rules[field])
 
 					if value := e.Type().Field(i).Interface().(string); !r.MatchString(value) {
 						append(badlyFormatedProperties, field)
 					}
 				}
-				
+
 				if kind == reflect.Float64() {
 					if value := e.Type().Field(i).Interface().(float64); value < 0 {
 						append(badlyFormatedProperties, field)

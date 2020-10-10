@@ -5,16 +5,16 @@ import (
 )
 
 type ClientOptions struct {
-	ApiKey string
-	PublicKey string
-	Timeout string
-	AccessToken string
-	Origin string
-	VerifySSL string
-	Debugging string
-	Host string
-	Env Environment string
+	ApiKey              string
+	PublicKey           string
+	Timeout             string
+	AccessToken         string
+	Origin              string
+	VerifySSL           string
+	Debugging           string
+	Host                string
+	Env                 Environment
 	ServiceProviderCode string
-	SecurityCredential string
+	SecurityCredential  string
 	InitiatorIdentifier string
 }

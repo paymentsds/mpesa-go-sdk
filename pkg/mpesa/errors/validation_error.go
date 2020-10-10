@@ -8,11 +8,10 @@ type ValidationError struct {
 
 func NewValidationError(props []string) *ValidationError {
 	return &ValidationError{
-		properties: props
+		properties: props,
 	}
 }
 
 func (v *ValidationError) Error() string {
 	return fmt.Sprintf("The following fields have validation errors: %s", v.properties)
 }
-

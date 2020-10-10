@@ -1,3 +1,5 @@
+package environment
+
 type Environment uint8
 
 const (

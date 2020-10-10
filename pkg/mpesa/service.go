@@ -6,7 +6,7 @@ type Service struct {
 
 func NewService(options ClientOptions) *Service {
 	return &Service{
-		configuration: NewConfiguration(options)
+		//configuration: NewConfiguration(options)
 	}
 }
 
@@ -29,18 +29,18 @@ func (s *Service) HandleQuery(intent Intent) (Result, error) {
 
 func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, error) {
 	operation, ok := Operations[opcode]
-	
+
 	if !ok {
 		// Panic
 	}
 
 	intent := s.fillOptionalValues(operation, intent)
 
-	if missingProperties; err := operation.detectMissingProperties(intent); err != nil {
-		
+	if missingProperties, err := operation.detectMissingProperties(intent); err != nil {
+
 	}
 
-	if invalidProperties; err := operation.validateProperties(intent); err != nil {
+	if invalidProperties, err := operation.validateProperties(intent); err != nil {
 
 	}
 
@@ -55,6 +55,6 @@ func (s *Service) fillOptionalValues(opcode Operationcode, intent Intent) Intent
 
 }
 
-func (s *Service) performRequest(opcode OperationCode, intent) (Result, error) {
+func (s *Service) performRequest(opcode OperationCode, intent Intent) (Result, error) {
 
 }

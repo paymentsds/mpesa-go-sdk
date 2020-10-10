@@ -8,11 +8,10 @@ type MissingPropertiesError struct {
 
 func NewMissingPropertiesError(props []string) *ValidationError {
 	return &MissingPropertiesError{
-		missingProperties: props
+		missingProperties: props,
 	}
 }
 
 func (v *MissingPropertiesError) Error() string {
 	return fmt.Sprintf("The following fields have uninitialized values: %s", v.missingProperties)
 }
-

@@ -10,7 +10,7 @@ type Client struct {
 
 func NewClient(options *options.ClientOptions) Client {
 	return &Client{
-		service: NewService(options)
+		service: NewService(options),
 	}
 }
 

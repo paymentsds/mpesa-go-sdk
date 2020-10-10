@@ -1,3 +1,5 @@
+package mpesa
+
 const (
 	C2BPayment OperationCode = iota
 	B2BPayment
@@ -14,27 +16,22 @@ const (
 )
 
 const (
-	PatternPhoneNumber := ""
-	PatternServiceProviderCode := ""
-	PatternWord := ""
-	PatternMoneyAmount := ""
+	PatternPhoneNumber         = ""
+	PatternServiceProviderCode = ""
+	PatternWord                = ""
+	PatternMoneyAmount         = ""
 )
 
 var (
-	Operations := map[OperationCode]Operation{
-		C2BPayment: &Operation{
-		},
+	Operations = map[OperationCode]Operation{
+		C2BPayment: &Operation{},
 
-		B2BPayment: &Operation{
-		},
+		B2BPayment: &Operation{},
 
-		B2CPayment: &Operation{
-		},
+		B2CPayment: &Operation{},
 
-		Reversal: &Operation{
-		},
+		Reversal: &Operation{},
 
-		QueryTransactionStatus: &Operation{
-		}
+		QueryTransactionStatus: &Operation{},
 	}
 )

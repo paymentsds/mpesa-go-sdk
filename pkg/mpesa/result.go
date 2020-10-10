@@ -1,3 +1,3 @@
 package mpesa
 
-type Result struct {}
+type Result struct{}
