@@ -1,12 +1,13 @@
 package mpesa
 
+	"net/http"
 type Service struct {
-	configuration Configuration
+	config Configuration
 }
 
 func NewService(options ClientOptions) *Service {
 	return &Service{
-		//configuration: NewConfiguration(options)
+		config: NewConfiguration(options),
 	}
 }
 
@@ -44,7 +45,7 @@ func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, er
 
 	}
 
-	return s.performRequest(operation, intent)
+	s.config.GenerateAccessToken()
 }
 
 func (s *Service) detectOperation(intent Intent) (OperationCode, error) {
