@@ -1,13 +1,29 @@
 package mpesa
 
 type Configuration struct {
-	Timeout             int
-	ApiKey              string
-	PublicKkey          string
-	AccessToken         string
-	SecurityCredential  string
-	InitiatorIdentifier string
-	VerifySSL           string
-	ServiceProviderCode string
-	Origin              string
+	timeout             int
+	apiKey              string
+	publicKkey          string
+	accessToken         string
+	securityCredential  string
+	initiatorIdentifier string
+	verifySSL           string
+	serviceProviderCode string
+	origin              string
+}
+
+func (c *Configuration) Headers() map[string][]string {
+	// TODO
+}
+
+func (c *Configuration) GenerateToken() {
+	// TODO
+}
+
+func (c *Configuration) HasValidHost() bool {
+	// TODO
+}
+
+func (c *Configuration) HasToken() bool {
+	// TODO
 }
