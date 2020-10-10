@@ -46,16 +46,50 @@ func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, er
 	}
 
 	s.config.GenerateAccessToken()
+
+	if s.config.HasValidHost() {
+		if s.config.HasToken() {
+			headers := s.config.Headers()
+			body := s.requestBody()
+
+			httpClient = &http.Client{
+				Timeout: s.config.Timeout * time.Second,
 }
 
-func (s *Service) detectOperation(intent Intent) (OperationCode, error) {
+			req := &http.Request{
+				Method: opetation.Method(),
+				URL: operation.URL(s.config),
+				Headers: s.config.Headers(),
+			}
 
+			if req.Method == "GET" {
+				// TODO
+			} else {
+				// TODO
 }
 
-func (s *Service) fillOptionalValues(opcode Operationcode, intent Intent) Intent {
+			res, err := httpClient.Do(req)
+			if err != nil {
+				// TODO
+			}
 
+			data, err := ioutil.ReadAll(res.Body)
+			if err != nil {
+				// TODO
 }
 
-func (s *Service) performRequest(opcode OperationCode, intent Intent) (Result, error) {
+			res.Body.Close()
+
+			output := make(map[string]string)
+			json.Unmarshall(output, &data)
+
+			return NewResult(output), nil
+		} else {
+			return nil, errors.NewAuthenticationError()
+		}
+	} else {
+		return nil, errors.NewInvalidHostError()
+	}
+}
 
 }
