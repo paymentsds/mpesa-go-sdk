@@ -1,6 +1,13 @@
 package mpesa
 
+import (
+	"fmt"
+	errors "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/errors"
 	"net/http"
+	"time"
+	"io/ioutil"
+)
+
 type Service struct {
 	config Configuration
 }
@@ -32,19 +39,31 @@ func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, er
 	operation, ok := Operations[opcode]
 
 	if !ok {
-		// Panic
+		// TODO
 	}
 
 	intent := s.fillOptionalValues(operation, intent)
 
-	if missingProperties, err := operation.detectMissingProperties(intent); err != nil {
-
+	if missingProperties, err := operation.detectMissingValues(intent); err != nil {
+		// TODO
 	}
 
-	if invalidProperties, err := operation.validateProperties(intent); err != nil {
-
+	if invalidProperties, err := operation.validateValues(intent); err != nil {
+		// TODO
 	}
 
+	return s.performRequest(operation, intent)
+}
+
+func (s *Service) detectOperation(intent Intent) (OperationCode, error) {
+	// TODO
+}
+
+func (s *Service) fillOptionalValues(opcode Operationcode, intent Intent) Intent {
+	// TODO
+}
+
+func (s *Service) performRequest(operation *Operation, intent Intent) (Result, error) {
 	s.config.GenerateAccessToken()
 
 	if s.config.HasValidHost() {
@@ -54,7 +73,7 @@ func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, er
 
 			httpClient = &http.Client{
 				Timeout: s.config.Timeout * time.Second,
-}
+			}
 
 			req := &http.Request{
 				Method: opetation.Method(),
@@ -66,7 +85,7 @@ func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, er
 				// TODO
 			} else {
 				// TODO
-}
+			}
 
 			res, err := httpClient.Do(req)
 			if err != nil {
@@ -76,7 +95,7 @@ func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, er
 			data, err := ioutil.ReadAll(res.Body)
 			if err != nil {
 				// TODO
-}
+			} 
 
 			res.Body.Close()
 
@@ -92,4 +111,6 @@ func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, er
 	}
 }
 
+func (s *Service) requestBody(operation *Operation, intent Intent) map[string]string {
+	// TODO
 }
