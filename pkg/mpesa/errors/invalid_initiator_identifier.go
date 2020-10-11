@@ -16,6 +16,6 @@ package errors
 
 import "fmt"
 
-type TransactionCanceledError struct {
+type InvalidInitiatorIdentifierError struct {
 	
 }
