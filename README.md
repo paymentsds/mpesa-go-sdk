@@ -66,13 +66,13 @@ client := mpesa.NewClient(
    options.WithEnvironment(environment.SANDBOX),
 )
 
-intent := mpesa.NewIntent{
+intent := mpesa.NewIntent(
    options.To("<REPLACE>"),
    options.From("<REPLACE>"),
    options.WithReference("<REPLACE>"),
    options.WithTransaction("<REPLACE>"),
    options.WithAmount(10),
-}
+)
 
 if response, err := client.Receive(intent); err != nil {
    // Handle failure scenarion
