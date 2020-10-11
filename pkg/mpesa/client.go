@@ -32,7 +32,7 @@ func NewClient(opts ...options.ClientOption) *Client {
 	}
 
 	return &Client{
-		service: NewService(clientProperties)
+		service: NewService(clientProperties),
 	}
 }
 

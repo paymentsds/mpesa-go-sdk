@@ -19,22 +19,21 @@ import (
 )
 
 type (
-	userAgent string
-	apiKey string
-	publicKey string
-	timeout uint
-	origin string
-	verifySSL bool
-	debugging bool
+	userAgent           string
+	apiKey              string
+	publicKey           string
+	timeout             uint
+	origin              string
+	verifySSL           bool
+	debugging           bool
 	serviceProviderCode string
 	initiatorIdentifier string
-	securityCredential string
+	securityCredential  string
 )
 
 type ClientOption interface {
-	Appl (c *ClientProperties)
+	Appl(c *ClientProperties)
 }
-
 
 type ClientProperties struct {
 	ApiKey              string

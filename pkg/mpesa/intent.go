@@ -14,6 +14,10 @@ package mpesa
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import (
+	options "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/options"
+)
+
 type Intent struct {
 	To          string
 	From        string
@@ -23,9 +27,9 @@ type Intent struct {
 }
 
 func NewIntent(opts ...options.IntentOption) *Intent {
-	intent := new(Intent)
+	intent := make(Intent)
 
-	for _, option := range {
+	for _, option := range opts {
 		option.Apply(intent)
 	}
 

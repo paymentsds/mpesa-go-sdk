@@ -19,15 +19,15 @@ import (
 )
 
 type (
-	to string
-	from string
-	amount float64
-	reference string
+	to          string
+	from        string
+	amount      float64
+	reference   string
 	transaction string
-	subject string
+	subject     string
 )
 
-type IntentOption struct {
+type IntentOption interface {
 	Apply(intent *mpesa.Intent)
 }
 
