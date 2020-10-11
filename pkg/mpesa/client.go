@@ -15,6 +15,7 @@ package mpesa
 // limitations under the License.
 
 import (
+	mpesa "github.com/paymentsds/mpesa-go-sdk/internal/mpesa"
 	options "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/options"
 )
 

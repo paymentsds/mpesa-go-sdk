@@ -49,35 +49,36 @@ M-Pesa SDK for Go is an unofficial library aiming to help businesses integrating
 ### Receive Money from a Mobile Account <a name="#usage/scenario-2"></a>
 
 ```go
-
 import (
     mpesa "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa"
+    options "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa"
+    environment "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa"
 )
 
-var client mpesa.Client = mpesa.NewClient(mpesa.Configuration{
-	ApiKey: "<REPLACE>"
-	PublicKey: "<REPLACE>"
-	Timeout: 0
-	AccessToken: "<REPLACE>"
-	ServiceProviderCode: "<REPLACE>"
-	SecurityCredential: "<REPLACE>"
-	InitiatorIdentifier: "<REPLACE>"
+client := mpesa.NewClient(mpesa.Configuration{
+	options.WithApiKey("<REPLACE>"),
+	options.PublicKey("<REPLACE>"),
+	options.Timeout(0),
+	options.AccessToken("<REPLACE>"),
+	options.ServiceProviderCode("<REPLACE>"),
+	options.SecurityCredential("<REPLACE>"),
+   options.InitiatorIdentifier("<REPLACE>"),
+   options.WithEnvironment(environment.SANDBOX),
 })
 
-var intent mpesa.Intent = mpesa.Intent{
-	To: "<REPLACE>"
-	From: "<REPLACE>"
-	Reference: "<REPLACE>"
-	Transaction: "<REPLACE>"
-	Amount: 10
+intent := mpesa.NewIntent{
+	options.To("<REPLACE>"),
+	options.From("<REPLACE>"),
+	options.WithReference("<REPLACE>"),
+	options.WithTransaction("<REPLACE>"),
+	options.WithAmount(10),
 }
 
-response, err := client.Receive(intent)
-if err != nil {
-	// Handle failure scenarion
+if response, err := client.Receive(intent); err != nil {
+   // Handle failure scenarion
+} else {
+   // Handle success scenarion
 }
-
-// Handle success scenarion
 ```
 
 ### Query the Status of a Transaction <a name="#usage/scenario-6"></a>
