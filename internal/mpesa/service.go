@@ -113,16 +113,109 @@ func (s *Service) performRequest(operation *Operation, intent Intent) (Result, e
 
 			res.Body.Close()
 
-			output := make(map[string]string)
-			json.Unmarshall(output, &data)
-
-			return NewResult(output), nil
+			return s.buildResult(res.StatusCode, data)
 		} else {
 			return nil, errors.NewAuthenticationError()
 		}
 	} else {
 		return nil, errors.NewInvalidHostError()
 	}
+}
+
+func (s *Service)buildResult(statusCode int, b []byte) (Result, error) {
+	jsonInput := make(map[string]string)
+	jsonOutput := make(map[string]string)
+
+	json.Unmarshall(jsonInput, &b)
+
+	properties := map[string]string{
+		"output_ConversationID":      "conversation",
+		"output_TransactionID":       "transaction",
+		"output_ResponseDesc":        "response",
+		"output_ResponseCode":        "code",
+		"output_ThirdPartyReference": "reference",
+	}
+
+	for oldName, newName := range properties {
+		if value, ok := jsonInput[oldName]; ok {
+			jsonOutput[newName] = value
+		}
+	}
+
+	switch statusCode {
+	case StatusOk, StatusCreated:
+		return s.NewResult(statusCode, jsonOutput), nil
+	case StatusBadRequest:
+		if code, ok := jsonOutput["code"]; ok {
+			switch code {
+			case "INS-13":
+				return nil, NewInvalidShortcodeError()
+			case "INS-14":
+				return nil, NewInvalidReferenceError()
+			case "INS-15":
+				return nil, NewInvalidAmountError()
+			case "INS-17":
+				return nil, NewInvalidTransactionReferenceError()
+			case "INS-18":
+				return nil, NewInvalidTransactionIdError()
+			case "INS-19":
+				return nil, NewInvalidThirdPartyReferenceError()
+			case "INS-20":
+				return nil, NewInvalidMissingPropertiesError()
+			case "INS-21":
+				return nil, NewValidationError()
+			case "INS-22":
+				return nil, NewInvalidOperationPartError()
+			case "INS-23":
+				return nil, NewUnknownStatusError()
+			case "INS-24":
+				return nil, NewInvalidInitiatorIdentifierError()
+			case "INS-25":
+				return nil, NewInvalidSecurityCredentialError()
+			case "INS-993":
+				return nil, NewDirectDebtMissingError()
+			case "INS-994":
+				return nil, NewDuplicatedDirectDebtError()
+			case "INS-995":
+				return nil, NewProfileProblemsError()
+			case "INS-996":
+				return nil, NewInactiveAccountError()
+			case "INS-997":
+				return nil, NewInvalidLanguageCodeError()
+			case "INS-998":
+				return nil, NewInvalidMarketError()
+			case "INS-2001":
+				return nil, NewInitiatorAuthenticationError()
+			case "INS-2002":
+				return nil, NewInvalidReceiverError()
+			case "INS-2051":
+				return nil, NewInvalidMSISDNError()
+			case "INS-2057":
+				return nil, NewInvalidLanguageCodeError()
+			}
+		}
+	case StatusUnauthorized:
+		if code, ok := jsonOutput["code"]; ok {
+			switch code {
+			case "INS-5":
+				return nil, NewTransactionCancelledError()
+			case "INS-6":
+				return nil, NewTransactionFailedError()
+			}
+		}
+	case StatusRequestTimeout:
+		return nil, NewRequestTimeoutError()
+	case StatusConflict:
+		return nil, NewDuplicateTransactionError()
+	case StatusUnprocessableEntity:
+		return nil, NewInsufficientBalanceError()
+	case StatusInternalServerError:
+		return nil, NewInternalError()
+	case StatusServiceUnavailable:
+		return nil, NewUnavailableServerError()
+	}
+
+	return nil, NewUnkownError()
 }
 
 func (s *Service) requestBody(operation *Operation, intent Intent) map[string]string {

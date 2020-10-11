@@ -57,11 +57,11 @@ import (
 
 client := mpesa.NewClient(	
    options.WithApiKey("<REPLACE>"),
-   options.PublicKey("<REPLACE>"),
-   options.Timeout(0),
-   options.AccessToken("<REPLACE>"),
-   options.ServiceProviderCode("<REPLACE>"),
-   options.SecurityCredential("<REPLACE>"),
+   options.WithPublicKey("<REPLACE>"),
+   options.WithTimeout(0),
+   options.WithAccessToken("<REPLACE>"),
+   options.WithServiceProviderCode("<REPLACE>"),
+   options.WithSecurityCredential("<REPLACE>"),
    options.InitiatorIdentifier("<REPLACE>"),
    options.WithEnvironment(environment.SANDBOX),
 )

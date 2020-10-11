@@ -1,4 +1,4 @@
-package mpesa
+package errors
 
 // Copyright 2020 Paymentds Developers
 
@@ -14,34 +14,8 @@ package mpesa
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type ResultData struct {
-	Conversation string
-	Transaction  string
-	Reference    string
-}
+import "fmt"
 
-type (
-	transaction    string
-	reference      string
-	conversationId string
-)
-
-type Result struct {
-	Data ResultData
-}
-
-//func NewResult()
-
-
-
-func WithTransaction(s string) ResultOption {
-
-}
-
-func WithReference(s string) ResultOption {
-
-}
-
-func WithData(b []byte) ResultOption {
-
+type InsuficientBalanceError struct {
+	
 }
