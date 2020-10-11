@@ -55,23 +55,23 @@ import (
     environment "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa"
 )
 
-client := mpesa.NewClient(mpesa.Configuration{
-	options.WithApiKey("<REPLACE>"),
-	options.PublicKey("<REPLACE>"),
-	options.Timeout(0),
-	options.AccessToken("<REPLACE>"),
-	options.ServiceProviderCode("<REPLACE>"),
-	options.SecurityCredential("<REPLACE>"),
+client := mpesa.NewClient(	
+   options.WithApiKey("<REPLACE>"),
+   options.PublicKey("<REPLACE>"),
+   options.Timeout(0),
+   options.AccessToken("<REPLACE>"),
+   options.ServiceProviderCode("<REPLACE>"),
+   options.SecurityCredential("<REPLACE>"),
    options.InitiatorIdentifier("<REPLACE>"),
    options.WithEnvironment(environment.SANDBOX),
-})
+)
 
 intent := mpesa.NewIntent{
-	options.To("<REPLACE>"),
-	options.From("<REPLACE>"),
-	options.WithReference("<REPLACE>"),
-	options.WithTransaction("<REPLACE>"),
-	options.WithAmount(10),
+   options.To("<REPLACE>"),
+   options.From("<REPLACE>"),
+   options.WithReference("<REPLACE>"),
+   options.WithTransaction("<REPLACE>"),
+   options.WithAmount(10),
 }
 
 if response, err := client.Receive(intent); err != nil {
