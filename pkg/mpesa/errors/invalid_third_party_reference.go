@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidThirdPartyReferenceError struct {
+type InvalidThirdPartyReferenceError struct{}
 
+func (i *InvalidThirdPartyReferenceError) Error() string {
+	return invalidThirdPartyReference
 }

@@ -16,6 +16,8 @@ package errors
 
 import "fmt"
 
-type TransactionCanceledError struct {
-	
+type InvalidSecurityCredentialError struct{}
+
+func (i *InvalidSecurityCredentialError) Error() string {
+	return invalidSecurityCredential
 }

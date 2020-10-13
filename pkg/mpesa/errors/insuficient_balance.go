@@ -16,6 +16,8 @@ package errors
 
 import "fmt"
 
-type InsuficientBalanceError struct {
-	
+type InsuficientBalanceError struct{}
+
+func (i *InsuficientBalanceError) Error() string {
+	return insufficientBalance
 }

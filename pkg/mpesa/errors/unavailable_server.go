@@ -16,6 +16,8 @@ package errors
 
 import "fmt"
 
-type UnavailableServerError struct {
-	
+type UnavailableServerError struct{}
+
+func (u *UnavailableServerError) Error() string {
+	return unavailableServer
 }

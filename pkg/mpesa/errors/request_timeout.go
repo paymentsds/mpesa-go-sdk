@@ -16,6 +16,8 @@ package errors
 
 import "fmt"
 
-type RequestTimeoutError struct {
-	
+type RequestTimeoutError struct{}
+
+func (i *RequestTimeoutError) Error() string {
+	return requestTimeout
 }

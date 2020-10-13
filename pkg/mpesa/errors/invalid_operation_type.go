@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidOperationTypeError struct {
+type InvalidOperationTypeError struct{}
 
+func (i *InvalidOperationTypeError) Error() string {
+	return invalidOperationType
 }

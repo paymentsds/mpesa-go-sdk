@@ -16,6 +16,8 @@ package errors
 
 import "fmt"
 
-type DuplicateTransactionError struct {
-	
+type DuplicateTransactionError struct{}
+
+func (d *DuplicateTransactionError) Error() string {
+	return duplicateTransaction
 }

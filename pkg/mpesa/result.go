@@ -30,10 +30,6 @@ type Result struct {
 	Data ResultData
 }
 
-//func NewResult()
-
-
-
 func WithTransaction(s string) ResultOption {
 
 }

@@ -16,6 +16,8 @@ package errors
 
 import "fmt"
 
-type TransactionCancelledError struct {
-	
+type TransactionCancelledError struct{}
+
+func (t *TransactionCancelledError) Error() string {
+	return transactionCancelled
 }

@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidMSISDNError struct {
+type InvalidMSISDNError struct{}
 
+func (i *InvalidMSISDNError) Error() string {
+	return invalidMSISDN
 }

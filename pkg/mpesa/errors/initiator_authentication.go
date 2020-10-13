@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InitiatorAuthenticationError struct {
+type InitiatorAuthenticationError struct{}
 
+func (i *InitiatorAuthenticationError) Error() string {
+	return initiatorAuthentication
 }

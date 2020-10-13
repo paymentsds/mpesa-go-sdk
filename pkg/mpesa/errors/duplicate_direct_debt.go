@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type DuplicateDirectDebtError struct {
+type DuplicateDirectDebtError struct{}
 
+func (d *DuplicateDirectDebtError) Error() string {
+	return duplicatedDirectDebt
 }

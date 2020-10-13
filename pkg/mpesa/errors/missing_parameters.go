@@ -14,8 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidAmountError struct{}
+type MissingParametersError struct{}
 
-func (i *InvalidAmountError) Error() string {
-	return invalidAmount
+func (m *MissingParametersError) Error() string {
+	return missingParameters
 }

@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidMarketError struct {
+type InvalidMarketError struct{}
 
+func (i *InvalidMarketError) Error() string {
+	return invalidMarket
 }

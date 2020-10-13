@@ -16,6 +16,8 @@ package errors
 
 import "fmt"
 
-type InactiveAccountError struct {
-	
+type InactiveAccountError struct{}
+
+func (i *InactiveAccountError) Error() string {
+	return inactiveAccount
 }

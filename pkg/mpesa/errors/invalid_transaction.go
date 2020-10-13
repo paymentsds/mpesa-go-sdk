@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidTransactionError struct {
+type InvalidTransactionError struct{}
 
+func (i *InvalidTransactionError) Error() string {
+	return invalidTransactionRef
 }

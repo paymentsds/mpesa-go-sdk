@@ -15,9 +15,8 @@ package errors
 // limitations under the License.
 
 type InternalError struct {
-
 }
 
-func (i *InternalError) Error() {
-
+func (i *InternalError) Error() string {
+	return internalError
 }

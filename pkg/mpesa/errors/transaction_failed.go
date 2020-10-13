@@ -14,8 +14,10 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidAmountError struct{}
+import "fmt"
 
-func (i *InvalidAmountError) Error() string {
-	return invalidAmount
+type TransactionFailedError struct{}
+
+func (t *TransactionFailedError) Error() string {
+	return transactionFailed
 }

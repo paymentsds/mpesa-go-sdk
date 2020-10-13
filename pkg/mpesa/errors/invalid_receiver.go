@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidReceiverError struct {
+type InvalidReceiverError struct{}
 
+func (i *InvalidReceiverError) Error() string {
+	return invalidReceiver
 }

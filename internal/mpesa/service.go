@@ -122,11 +122,11 @@ func (s *Service) performRequest(operation *Operation, intent Intent) (Result, e
 	}
 }
 
-func (s *Service)buildResult(statusCode int, b []byte) (Result, error) {
-	jsonInput := make(map[string]string)
-	jsonOutput := make(map[string]string)
+func (s *Service) buildResult(statusCode int, b []byte) (*Result, error) {
+	input := make(map[string]string)
+	output := make(map[string]string)
 
-	json.Unmarshall(jsonInput, &b)
+	json.Unmarshall(input, &b)
 
 	properties := map[string]string{
 		"output_ConversationID":      "conversation",
@@ -137,85 +137,85 @@ func (s *Service)buildResult(statusCode int, b []byte) (Result, error) {
 	}
 
 	for oldName, newName := range properties {
-		if value, ok := jsonInput[oldName]; ok {
-			jsonOutput[newName] = value
+		if value, ok := input[oldName]; ok {
+			output[newName] = value
 		}
 	}
 
 	switch statusCode {
 	case StatusOk, StatusCreated:
-		return s.NewResult(statusCode, jsonOutput), nil
+		return s.NewResult(statusCode, output), nil
 	case StatusBadRequest:
-		if code, ok := jsonOutput["code"]; ok {
+		if code, ok := output["code"]; ok {
 			switch code {
-			case "INS-13":
-				return nil, NewInvalidShortcodeError()
-			case "INS-14":
-				return nil, NewInvalidReferenceError()
-			case "INS-15":
-				return nil, NewInvalidAmountError()
-			case "INS-17":
-				return nil, NewInvalidTransactionReferenceError()
-			case "INS-18":
-				return nil, NewInvalidTransactionIdError()
-			case "INS-19":
-				return nil, NewInvalidThirdPartyReferenceError()
-			case "INS-20":
-				return nil, NewInvalidMissingPropertiesError()
-			case "INS-21":
-				return nil, NewValidationError()
-			case "INS-22":
-				return nil, NewInvalidOperationPartError()
-			case "INS-23":
-				return nil, NewUnknownStatusError()
-			case "INS-24":
-				return nil, NewInvalidInitiatorIdentifierError()
-			case "INS-25":
-				return nil, NewInvalidSecurityCredentialError()
-			case "INS-993":
-				return nil, NewDirectDebtMissingError()
-			case "INS-994":
-				return nil, NewDuplicatedDirectDebtError()
-			case "INS-995":
-				return nil, NewProfileProblemsError()
-			case "INS-996":
-				return nil, NewInactiveAccountError()
-			case "INS-997":
-				return nil, NewInvalidLanguageCodeError()
-			case "INS-998":
-				return nil, NewInvalidMarketError()
-			case "INS-2001":
-				return nil, NewInitiatorAuthenticationError()
-			case "INS-2002":
-				return nil, NewInvalidReceiverError()
-			case "INS-2051":
-				return nil, NewInvalidMSISDNError()
-			case "INS-2057":
-				return nil, NewInvalidLanguageCodeError()
+			case INS13:
+				return nil, new(InvalidShortcodeError)
+			case INS14:
+				return nil, new(InvalidReferenceError)
+			case INS15:
+				return nil, new(InvalidAmountError)
+			case INS17:
+				return nil, new(InvalidTransactionReferenceError)
+			case INS18:
+				return nil, new(InvalidTransactionIdError)
+			case INS19:
+				return nil, new(InvalidThirdPartyReferenceError)
+			case INS20:
+				return nil, new(InvalidMissingPropertiesError)
+			case INS21:
+				return nil, new(ValidationError)
+			case INS22:
+				return nil, new(InvalidOperationPartError)
+			case INS23:
+				return nil, new(UnknownStatusError)
+			case INS24:
+				return nil, new(InvalidInitiatorIdentifierError)
+			case INS25:
+				return nil, new(InvalidSecurityCredentialError)
+			case INS993:
+				return nil, new(DirectDebtMissingError)
+			case INS994:
+				return nil, new(DuplicatedDirectDebtError)
+			case INS995:
+				return nil, new(ProfileProblemsError)
+			case INS996:
+				return nil, new(InactiveAccountError)
+			case INS997:
+				return nil, new(InvalidLanguageCodeError)
+			case INS998:
+				return nil, new(InvalidMarketError)
+			case INS2001:
+				return nil, new(InitiatorAuthenticationError)
+			case INS2002:
+				return nil, new(InvalidReceiverError)
+			case INS2051:
+				return nil, new(InvalidMSISDNError)
+			case INS2057:
+				return nil, new(InvalidLanguageCodeError)
 			}
 		}
 	case StatusUnauthorized:
-		if code, ok := jsonOutput["code"]; ok {
+		if code, ok := output["code"]; ok {
 			switch code {
-			case "INS-5":
-				return nil, NewTransactionCancelledError()
-			case "INS-6":
-				return nil, NewTransactionFailedError()
+			case INS5:
+				return nil, new(TransactionCancelledError)
+			case INS6:
+				return nil, new(TransactionFailedError)
 			}
 		}
 	case StatusRequestTimeout:
-		return nil, NewRequestTimeoutError()
+		return nil, new(RequestTimeoutError)
 	case StatusConflict:
-		return nil, NewDuplicateTransactionError()
+		return nil, new(DuplicateTransactionError)
 	case StatusUnprocessableEntity:
-		return nil, NewInsufficientBalanceError()
+		return nil, new(InsufficientBalanceError)
 	case StatusInternalServerError:
-		return nil, NewInternalError()
+		return nil, new(InternalError)
 	case StatusServiceUnavailable:
-		return nil, NewUnavailableServerError()
+		return nil, new(UnavailableServerError)
 	}
 
-	return nil, NewUnkownError()
+	return nil, new(UnkownError)
 }
 
 func (s *Service) requestBody(operation *Operation, intent Intent) map[string]string {

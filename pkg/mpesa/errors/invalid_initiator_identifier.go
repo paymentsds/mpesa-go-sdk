@@ -16,6 +16,8 @@ package errors
 
 import "fmt"
 
-type InvalidInitiatorIdentifierError struct {
-	
+type InvalidInitiatorIdentifierError struct{}
+
+func (i *InvalidInitiatorIdentifierError) Error() string {
+	return invalidInitiatorIdentifier
 }

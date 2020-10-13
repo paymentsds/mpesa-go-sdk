@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type UnknownError struct {
+type UnknownError struct{}
 
+func (u *UnknownError) Error() string {
+	return "Unknown Error"
 }

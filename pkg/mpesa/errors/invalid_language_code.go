@@ -14,8 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidAmountError struct{}
+type InvalidLanguageCodeError struct{}
 
-func (i *InvalidAmountError) Error() string {
-	return invalidAmount
+func (i *InvalidLanguageCodeError) Error() string {
+	return invalidLanguageCode
 }

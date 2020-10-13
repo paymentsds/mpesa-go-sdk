@@ -14,6 +14,8 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidShortcodeError struct {
+type InvalidShortcodeError struct{}
 
+func (i *InvalidShortcodeError) Error() string {
+	return invalidShortCode
 }
