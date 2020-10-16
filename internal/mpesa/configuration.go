@@ -14,10 +14,14 @@ package mpesa
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import (
+	environment "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/environment"
+)
+
 type Configuration struct {
 	timeout             int
 	apiKey              string
-	publicKkey          string
+	publickey           string
 	accessToken         string
 	securityCredential  string
 	initiatorIdentifier string
@@ -25,20 +29,41 @@ type Configuration struct {
 	serviceProviderCode string
 	origin              string
 	userAgent           string
+	host                string
+	environment         Environment
 }
 
 func (c *Configuration) Headers() map[string][]string {
-	// TODO
+	c.generateToken()
+
+	return map[string][]string{
+		"Origin": []string{
+			c.origin,
+		},
+		"User-Agent": []string{
+			c.userAgent,
+		},
+		"Authorization": []string{
+			fmt.Sprintf("Bearer %s", c.accessToken),
+		},
+		"Content-Type": []string{
+			"application/json",
+		}
+	}
 }
 
-func (c *Configuration) GenerateToken() {
+func (c *Configuration) generateToken() {
 	// TODO
 }
 
 func (c *Configuration) HasValidHost() bool {
-	// TODO
+	if u, err := url.Parse(c.host); err == nil {
+		return u.isAbs()
+	}
+
+	return false
 }
 
 func (c *Configuration) HasToken() bool {
-	// TODO
+	return c.accessToken != "" && c.accessToken != nil
 }

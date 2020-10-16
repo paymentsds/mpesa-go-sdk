@@ -14,6 +14,15 @@ package mpesa
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import (
+	"net/http"
+)
+
+const (
+	Version   = "0.1.0-alpha-1"
+	UserAgent = fmt.Sprintf("Paymentsds Go/%s", Version)
+)
+
 const (
 	C2BPayment OperationCode = iota
 	B2BPayment
@@ -23,29 +32,102 @@ const (
 )
 
 const (
-	Get HttpMethod = iota
-	Post
-	Put
-	Delete
-)
-
-const (
-	PatternPhoneNumber         = ""
-	PatternServiceProviderCode = ""
-	PatternWord                = ""
-	PatternMoneyAmount         = ""
+	PatternPhoneNumber         = "^((00|\\+)?258)?8[45][0-9]{7}$"
+	PatternServiceProviderCode = "^[0-9]{6}$"
+	PatternWord                = "^\\w{20}$"
+	PatternMoneyAmount         = "^[0-9]+(\\.[0-9]+)?$"
 )
 
 var (
 	Operations = map[OperationCode]Operation{
-		C2BPayment: &Operation{},
+		C2BPayment: &Operation{
+			method:   http.MethodPost,
+			path:     "",
+			port:     "",
+			required: []string{
 
-		B2BPayment: &Operation{},
+			},
+			optional: []string{
 
-		B2CPayment: &Operation{},
+			},
+			mapping:  map[string]string{
 
-		Reversal: &Operation{},
+			},
+			rules:    map[string]string{
 
-		QueryTransactionStatus: &Operation{},
+			},
+		},
+
+		B2BPayment: &Operation{
+			method:   http.MethodPost,
+			path:     "",
+			port:     "",
+			required: []string{
+
+			},
+			optional: []string{
+
+			},
+			mapping:  map[string]string{
+
+			},
+			rules:    map[string]string{
+
+			},
+		},
+
+		B2CPayment: &Operation{
+			method:   http.MethodPost,
+			path:     "",
+			port:     "",
+			required: []string{
+
+			},
+			optional: []string{
+
+			},
+			mapping:  map[string]string{
+
+			},
+			rules:    map[string]string{
+
+			},
+		},
+
+		Reversal: &Operation{
+			method:   http.MethodPut,
+			path:     "",
+			port:     "",
+			required: []string{
+				
+			},
+			optional: []string{
+
+			},
+			mapping:  map[string]string{
+
+			},
+			rules:    map[string]string{
+
+			},
+		},
+
+		QueryTransactionStatus: &Operation{
+			method:   http.MethodGet,
+			path:     "",
+			port:     "",
+			required: []string{
+
+			},
+			optional: []string{
+
+			},
+			mapping:  map[string]string{
+
+			},
+			rules:    map[string]string{
+
+			},
+		},
 	}
 )
