@@ -96,9 +96,19 @@ func (s *Service) performRequest(operation *Operation, intent Intent) (Result, e
 			}
 
 			if req.Method == http.MethodGet {
-				// TODO
-			} else {
-				// TODO
+				formData := make(map[string][]string{})
+
+				for k, v := range body {
+					formData[k] = {v}
+				}
+
+				req.Form = formData
+			} else {				
+				if jsonBody, err := json.Marshal(body); err == nil {
+					req.Body = jsonBody
+				}
+
+				return nil, new(ValidationError)
 			}
 
 			res, err := httpClient.Do(req)
@@ -106,14 +116,7 @@ func (s *Service) performRequest(operation *Operation, intent Intent) (Result, e
 				// TODO
 			}
 
-			data, err := ioutil.ReadAll(res.Body)
-			if err != nil {
-				// TODO
-			}
-
-			res.Body.Close()
-
-			return s.buildResult(res.StatusCode, data)
+			return s.buildResult(res)
 		} else {
 			return nil, errors.NewAuthenticationError()
 		}
@@ -122,11 +125,18 @@ func (s *Service) performRequest(operation *Operation, intent Intent) (Result, e
 	}
 }
 
-func (s *Service) buildResult(statusCode int, b []byte) (*Result, error) {
+func (s *Service) buildResult(res *http.Result) (*Result, error) {
 	input := make(map[string]string)
 	output := make(map[string]string)
 
-	json.Unmarshall(input, &b)
+	data, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		// TODO
+	}
+	
+	res.Body.Close()
+
+	json.Unmarshall(input, &data)
 
 	properties := map[string]string{
 		"output_ConversationID":      "conversation",
@@ -142,7 +152,7 @@ func (s *Service) buildResult(statusCode int, b []byte) (*Result, error) {
 		}
 	}
 
-	switch statusCode {
+	switch res.StatusCode {
 	case StatusOk, StatusCreated:
 		return s.NewResult(statusCode, output), nil
 	case StatusBadRequest:
