@@ -37,16 +37,16 @@ func (c *Configuration) Headers() map[string][]string {
 	c.generateToken()
 
 	return map[string][]string{
-		"Origin": []string{
+		"Origin": {
 			c.origin,
 		},
-		"User-Agent": []string{
+		"User-Agent": {
 			c.userAgent,
 		},
-		"Authorization": []string{
+		"Authorization": {
 			fmt.Sprintf("Bearer %s", c.accessToken),
 		},
-		"Content-Type": []string{
+		"Content-Type": {
 			"application/json",
 		}
 	}
