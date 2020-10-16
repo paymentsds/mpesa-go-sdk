@@ -99,10 +99,10 @@ func (o *Operation) validateValues(intent Intent) ([]string, error) {
 	return badlyFormatedProperties, nil
 }
 
-func (o *Operation) URL(c *Configuration) *url.URL {
-	// TODO
+func (o *Operation) URL(c *Configuration) (*url.URL, error) {
+	return url.Parse(fmt.Sprintf("%s:%s%s", c.Host(), o.port, o.path))
 }
 
 func (o *Operation) Method() string {
-	// TODO
+	return o.method()
 }
