@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"time"
+	"reflect"
 )
 
 type Service struct {
@@ -51,7 +52,6 @@ func (s *Service) HandleQuery(intent Intent) (Result, error) {
 
 func (s *Service) handleRequest(opcode OperationCode, intent Intent) (Result, error) {
 	operation, ok := Operations[opcode]
-
 	if !ok {
 		// TODO
 	}
@@ -95,7 +95,7 @@ func (s *Service) performRequest(operation *Operation, intent Intent) (Result, e
 				Headers: s.config.Headers(),
 			}
 
-			if req.Method == MethodGet {
+			if req.Method == http.MethodGet {
 				// TODO
 			} else {
 				// TODO
@@ -219,5 +219,26 @@ func (s *Service) buildResult(statusCode int, b []byte) (*Result, error) {
 }
 
 func (s *Service) requestBody(operation *Operation, intent Intent) map[string]string {
-	// TODO
+	output := map[string]string{}
+
+	v := reflect.ValueOf(operation)
+	for i := 0; i < v.NumField(); i++ {
+		field = v.Field(i)
+
+		for k, v := range operation.mapping {
+			if newName, ok := operation.mapping[field.Name]; ok {
+				switch v.Kind() {
+				case reflect.String:
+					output[newName] = fmt.Sprintf("%s", field.String())
+				case reflect.Float64:
+					output[newName] = fmt.Sprintf("%s", field.Float64())
+				default:
+					// TODO
+				}
+				
+			}
+		}
+	}
+
+	return output
 }
