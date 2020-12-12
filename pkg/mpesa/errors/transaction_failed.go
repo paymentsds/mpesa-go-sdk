@@ -14,8 +14,6 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import "fmt"
-
 type TransactionFailedError struct{}
 
 func (t *TransactionFailedError) Error() string {

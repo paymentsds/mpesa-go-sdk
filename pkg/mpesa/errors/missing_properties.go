@@ -20,7 +20,7 @@ type MissingPropertiesError struct {
 	missingProperties []string
 }
 
-func NewMissingPropertiesError(props []string) *ValidationError {
+func NewMissingPropertiesError(props []string) *MissingPropertiesError {
 	return &MissingPropertiesError{
 		missingProperties: props,
 	}

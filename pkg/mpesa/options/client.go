@@ -15,7 +15,7 @@ package options
 // limitations under the License.
 
 import (
-	environment "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/environment"
+	env "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/environment"
 )
 
 type (
@@ -32,19 +32,19 @@ type (
 )
 
 type ClientOption interface {
-	Appl(c *ClientProperties)
+	Apply(c *ClientProperties)
 }
 
 type ClientProperties struct {
 	ApiKey              string
 	PublicKey           string
-	Timeout             string
+	Timeout             uint
 	AccessToken         string
 	Origin              string
-	VerifySSL           string
-	Debugging           string
+	VerifySSL           bool
+	Debugging           bool
 	Host                string
-	Environment         Environment
+	Environment         env.Environment
 	ServiceProviderCode string
 	SecurityCredential  string
 	InitiatorIdentifier string
@@ -57,10 +57,6 @@ func WithApiKey(s string) ClientOption {
 
 func WithUserAgent(s string) ClientOption {
 	return userAgent(s)
-}
-
-func WithTimeout(u uint) ClientOption {
-	return timeout(u)
 }
 
 func WithOrigin(s string) ClientOption {
@@ -97,4 +93,32 @@ func (key apiKey) Apply(c *ClientProperties) {
 
 func (ua userAgent) Apply(c *ClientProperties) {
 	c.UserAgent = string(ua)
+}
+
+func (t timeout) Apply(c *ClientProperties) {
+	c.Timeout = uint(t)
+}
+
+func (o origin) Apply(c *ClientProperties) {
+	c.Origin = string(o)
+}
+
+func (v verifySSL) Apply(c *ClientProperties) {
+	c.VerifySSL = bool(v)
+}
+
+func (d debugging) Apply(c *ClientProperties) {
+	c.Debugging = bool(d)
+}
+
+func (s serviceProviderCode) Apply(c *ClientProperties) {
+	c.ServiceProviderCode = string(s)
+}
+
+func (i initiatorIdentifier) Apply(c *ClientProperties) {
+	c.InitiatorIdentifier = string(i)
+}
+
+func (s securityCredential) Apply(c *ClientProperties) {
+	c.SecurityCredential = string(s)
 }

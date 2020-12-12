@@ -1,4 +1,4 @@
-package errors
+package mpesa
 
 // Copyright 2020 Paymentds Developers
 
@@ -14,8 +14,4 @@ package errors
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type InvalidInitiatorIdentifierError struct{}
-
-func (i *InvalidInitiatorIdentifierError) Error() string {
-	return invalidInitiatorIdentifier
-}
+import "testing"

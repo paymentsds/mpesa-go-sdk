@@ -1,4 +1,4 @@
-package errors
+package options
 
 // Copyright 2020 Paymentds Developers
 
@@ -13,9 +13,3 @@ package errors
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-type InvalidInitiatorIdentifierError struct{}
-
-func (i *InvalidInitiatorIdentifierError) Error() string {
-	return invalidInitiatorIdentifier
-}

@@ -15,11 +15,11 @@ package mpesa
 // limitations under the License.
 
 import (
+	"fmt"
 	"net/http"
 )
 
-const (
-	Version   = "0.1.0-alpha-1"
+var (
 	UserAgent = fmt.Sprintf("Paymentsds Go/%s", Version)
 )
 
@@ -44,90 +44,50 @@ var (
 			method:   http.MethodPost,
 			path:     "",
 			port:     "",
-			required: []string{
-
-			},
-			optional: []string{
-
-			},
-			mapping:  map[string]string{
-
-			},
-			rules:    map[string]string{
-
-			},
+			required: []string{},
+			optional: []string{},
+			mapping:  map[string]string{},
+			rules:    map[string]string{},
 		},
 
 		B2BPayment: &Operation{
 			method:   http.MethodPost,
 			path:     "",
 			port:     "",
-			required: []string{
-
-			},
-			optional: []string{
-
-			},
-			mapping:  map[string]string{
-
-			},
-			rules:    map[string]string{
-
-			},
+			required: []string{},
+			optional: []string{},
+			mapping:  map[string]string{},
+			rules:    map[string]string{},
 		},
 
 		B2CPayment: &Operation{
 			method:   http.MethodPost,
 			path:     "",
 			port:     "",
-			required: []string{
-
-			},
-			optional: []string{
-
-			},
-			mapping:  map[string]string{
-
-			},
-			rules:    map[string]string{
-
-			},
+			required: []string{},
+			optional: []string{},
+			mapping:  map[string]string{},
+			rules:    map[string]string{},
 		},
 
 		Reversal: &Operation{
 			method:   http.MethodPut,
 			path:     "",
 			port:     "",
-			required: []string{
-				
-			},
-			optional: []string{
-
-			},
-			mapping:  map[string]string{
-
-			},
-			rules:    map[string]string{
-
-			},
+			required: []string{},
+			optional: []string{},
+			mapping:  map[string]string{},
+			rules:    map[string]string{},
 		},
 
 		QueryTransactionStatus: &Operation{
 			method:   http.MethodGet,
 			path:     "",
 			port:     "",
-			required: []string{
-
-			},
-			optional: []string{
-
-			},
-			mapping:  map[string]string{
-
-			},
-			rules:    map[string]string{
-
-			},
+			required: []string{},
+			optional: []string{},
+			mapping:  map[string]string{},
+			rules:    map[string]string{},
 		},
 	}
 )

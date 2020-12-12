@@ -17,5 +17,5 @@ package errors
 type InvalidTransactionLinkingError struct{}
 
 func (i *InvalidTransactionLinkingError) Error() string {
-	return invalidTransactionLinking
+	return invalidLinkingTransaction
 }

@@ -14,67 +14,63 @@ package options
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import (
-	mpesa "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa"
-)
+// type (
+// 	to          string
+// 	from        string
+// 	amount      float64
+// 	reference   string
+// 	transaction string
+// 	subject     string
+// )
 
-type (
-	to          string
-	from        string
-	amount      float64
-	reference   string
-	transaction string
-	subject     string
-)
+// type IntentOption interface {
+// 	Apply(intent *mpesa.Intent)
+// }
 
-type IntentOption interface {
-	Apply(intent *mpesa.Intent)
-}
+// func To(s string) IntentOption {
+// 	return to(s)
+// }
 
-func To(s string) IntentOption {
-	return to(s)
-}
+// func From(s string) IntentOption {
+// 	return from(s)
+// }
 
-func From(s string) IntentOption {
-	return from(s)
-}
+// func WithAmount(f float64) IntentOption {
+// 	return amount(f)
+// }
 
-func WithAmount(f float64) IntentOption {
-	return amount(f)
-}
+// func WithReference(s string) IntentOption {
+// 	return reference(s)
+// }
 
-func WithReference(s string) IntentOption {
-	return reference(s)
-}
+// func WithTransaction(s string) IntentOption {
+// 	return transaction(s)
+// }
 
-func WithTransaction(s string) IntentOption {
-	return transaction(s)
-}
+// func WithSubject(s string) IntentOption {
+// 	return subject(s)
+// }
 
-func WithSubject(s string) IntentOption {
-	return subject(s)
-}
+// func (t to) Apply(i *IntentOption) {
+// 	i.To = string(t)
+// }
 
-func (t to) Apply(i *IntentOption) {
-	i.To = string(t)
-}
+// func (f from) Apply(i *IntentOption) {
+// 	i.From = string(f)
+// }
 
-func (f from) Apply(i *IntentOption) {
-	i.From = string(f)
-}
+// func (a amount) Apply(i *IntentOption) {
+// 	i.Amount = float64(a)
+// }
 
-func (a amount) Apply(i *IntentOption) {
-	i.Amount = float64(a)
-}
+// func (r reference) Apply(i *IntentOption) {
+// 	i.Reference = string(r)
+// }
 
-func (r reference) Apply(i *IntentOption) {
-	i.Reference = string(r)
-}
+// func (t transaction) Apply(i *IntentOption) {
+// 	i.Transaction = string(t)
+// }
 
-func (t transaction) Apply(i *IntentOption) {
-	i.Transaction = string(t)
-}
-
-func (s subject) Apply(i *IntentOption) {
-	i.Subject = string(s)
-}
+// func (s subject) Apply(i *IntentOption) {
+// 	i.Subject = string(s)
+// }

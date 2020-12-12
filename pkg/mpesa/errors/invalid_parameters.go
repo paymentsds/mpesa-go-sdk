@@ -17,5 +17,5 @@ package errors
 type InvalidParametersError struct{}
 
 func (i *InvalidParametersError) Error() string {
-	return InvalidParameters
+	return invalidParameters
 }
