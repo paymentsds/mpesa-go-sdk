@@ -14,4 +14,42 @@ package mpesa
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import "testing"
+import (
+	"testing"
+
+	client "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/client"
+	"github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/environment"
+)
+
+func TestClientPublicKey(t *testing.T) {
+	publicKey := "X"
+
+	client := NewClient(
+		client.WithPublicKey(publicKey),
+	)
+
+	if publicKey != client.properties.PublicKey {
+		t.Errorf("Failed to initialize publicKey")
+	}
+}
+
+func TestClientEnvironment(t *testing.T) {
+
+	client := NewClient()
+
+	if client.properties.Environment != environment.Sandbox {
+		t.Errorf("Failed to initialize Environment")
+	}
+}
+
+func TestClientUserAgent(t *testing.T) {
+	userAgent := "X"
+
+	client := NewClient(
+		client.WithUserAgent(userAgent),
+	)
+
+	if userAgent != client.properties.UserAgent {
+		t.Errorf("Failed to initialize User Agent")
+	}
+}
