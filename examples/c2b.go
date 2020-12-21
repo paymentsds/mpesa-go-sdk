@@ -2,28 +2,34 @@ package main
 
 import (
 	mpesa "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa"
-	environment "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/environment"
-	errors "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/errors"
-	options "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/options"
+	client "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/client"
+	env "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/env"
+	intent "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/intent"
 )
 
 func main() {
 	client := mpesa.NewClient(
-		options.WithApiKey("<REPLACE>"),
-		options.WithPublicKey("<REPLACE>"),
-		options.WithTimeout(10),
-		options.WithUserAgent("Paymentsds/M-Pesa"),
-		options.WithOrigin("*"),
-		options.WithHost(""),
-		options.WithEnvironment(environment.SANDBOX),
+		client.WithApiKey(""),
+		client.WithPublicKey(""),
+		client.WithConnectionTimeout(10),
+		client.WithReadTimeout(10),
+		client.WithUserAgent(""),
+		client.WithOrigin(""),
+		client.WithHost(""),
+		client.WithEnvironment(env.Sandbox),
+		client.WithInitiatorIdentifier(""),
+		client.WithSecurityCredential(""),
+		client.WithServiceProviderCode("")
 	)
 
 	intent := mpesa.NewIntent(
-		options.WithAmount(10),
-		options.WithReference("<REPLACE>"),
-		options.WithTransaction("<REPLACE>"),
-		options.From("<REPLACE>"),
-		options.To("<REPLACE>"),
+		intent.WithAmount(10.0),
+		intent.WithReversalAmount(10.0),
+		intent.WithThirdPartyReference(""),
+		intent.WithTransactionReference(""),
+		intent.Source(""),
+		intent.Destination(""),
+		intent.TransactionId(""),
 	)
 
 	if result, err := client.Receive(intent); err != nil {
