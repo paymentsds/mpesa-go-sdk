@@ -15,23 +15,21 @@ package mpesa
 // limitations under the License.
 
 import (
-	options "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/options"
+	intent "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/intent"
 )
 
 type Intent struct {
-	To          string
-	From        string
-	Reference   string
-	Transaction string
-	Subject     string
+	properties intent.Properties
 }
 
-func NewIntent(opts ...options.IntentOption) *Intent {
-	intent := make(Intent)
+func NewIntent(intentOptions ...intent.Option) *Intent {
+	i := new(Intent)
 
-	for _, option := range opts {
-		option.Apply(intent)
+	for _, option := range intentOptions {
+		option.Apply(&i.properties)
 	}
 
-	return intent
+	return i
 }
+
+//
