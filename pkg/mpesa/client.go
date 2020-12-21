@@ -15,39 +15,45 @@ package mpesa
 // limitations under the License.
 
 import (
-	mpesa "github.com/paymentsds/mpesa-go-sdk/internal/mpesa"
-	options "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/options"
+	client "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/client"
+	// "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/environment"
 )
 
 type Client struct {
-	service Service
+	properties client.Properties
 }
 
-func NewClient(opts ...options.ClientOption) *Client {
+func NewClient(clientOptions ...client.Option) *Client {
 
-	clientProperties := new(ClientProperties)
+	client := new(Client)
 
-	for _, option := range opts {
-		option.Apply(clientProperties)
+	for _, clientOption := range clientOptions {
+		clientOption.Apply(&client.properties)
 	}
 
-	return &Client{
-		service: NewService(clientProperties),
+	if client.properties.UserAgent == "" {
+		client.properties.UserAgent = "Paymentsds Go/0.1.0"
 	}
+
+	if client.properties.Origin == "" {
+		client.properties.Origin = "*"
+	}
+
+	return client
 }
 
-func (c *Client) Send(intent Intent) (Result, error) {
-	return c.service.HandleSend(intent)
-}
+// func (c *Client) Send(intent Intent) (Result, error) {
+// 	return c.service.HandleSend(intent)
+// }
 
-func (c *Client) Receive(intent Intent) (Result, error) {
-	return c.service.HandleReceive(intent)
-}
+// func (c *Client) Receive(intent Intent) (Result, error) {
+// 	return c.service.HandleReceive(intent)
+// }
 
-func (c *Client) Revert(intent Intent) (Result, error) {
-	return c.service.HandleRevert(intent)
-}
+// func (c *Client) Revert(intent Intent) (Result, error) {
+// 	return c.service.HandleRevert(intent)
+// }
 
-func (c *Client) Query(intent Intent) (Result, error) {
-	return c.service.HandleQuery(intent)
-}
+// func (c *Client) Query(intent Intent) (Result, error) {
+// 	return c.service.HandleQuery(intent)
+// }
