@@ -15,7 +15,9 @@ package mpesa
 // limitations under the License.
 
 import (
-	environment "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/environment"
+	"fmt"
+	environment "github.com/paymentsds/mpesa-go-sdk/pkg/mpesa/env"
+	"net/url"
 )
 
 type Configuration struct {
@@ -30,7 +32,7 @@ type Configuration struct {
 	origin              string
 	userAgent           string
 	host                string
-	environment         Environment
+	environment         environment.Environment
 }
 
 func (c *Configuration) Headers() map[string][]string {
@@ -48,22 +50,30 @@ func (c *Configuration) Headers() map[string][]string {
 		},
 		"Content-Type": {
 			"application/json",
-		}
+		},
 	}
 }
 
 func (c *Configuration) generateToken() {
-	// TODO
+	tok := NewTokenGenerator()
+	tok.SetApiKey(c.apiKey)
+	tok.SetPublicKey(c.publickey)
+	err := tok.GenerateAccessToken()
+	if err != nil {
+
+		return
+	}
+	c.accessToken = tok.GetAccessToken()
 }
 
 func (c *Configuration) HasValidHost() bool {
 	if u, err := url.Parse(c.host); err == nil {
-		return u.isAbs()
+		return u.IsAbs()
 	}
 
 	return false
 }
 
 func (c *Configuration) HasToken() bool {
-	return c.accessToken != "" && c.accessToken != nil
+	return c.accessToken != "" && &c.accessToken != nil
 }
