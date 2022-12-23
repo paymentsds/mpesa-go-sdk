@@ -19,7 +19,7 @@ func main() {
 		client.WithEnvironment(env.Sandbox),
 		client.WithInitiatorIdentifier(""),
 		client.WithSecurityCredential(""),
-		client.WithServiceProviderCode("")
+		client.WithServiceProviderCode(""),
 	)
 
 	intent := mpesa.NewIntent(
